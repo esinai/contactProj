@@ -56,7 +56,9 @@ namespace contactProj.IFS
                 return true;
             }
             return false;
-            
+        }
+        public static void jadekFunc()
+        {
 
         }
         #endregion
