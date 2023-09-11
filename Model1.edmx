@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="contactTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="creationDate" Type="datetime" Nullable="false" />
+          <Property Name="fullName" Type="nvarchar" MaxLength="101" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="emailTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cID" Type="int" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="phoneTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cID" Type="int" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_emailTBL_TocontactTBL">
+          <End Role="contactTBL" Type="Self.contactTBL" Multiplicity="1" />
+          <End Role="emailTBL" Type="Self.emailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contactTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="emailTBL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_phoneTBL_ToContcatTBL">
+          <End Role="contactTBL" Type="Self.contactTBL" Multiplicity="1" />
+          <End Role="phoneTBL" Type="Self.phoneTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contactTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="phoneTBL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="contactTBL" EntityType="Self.contactTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emailTBL" EntityType="Self.emailTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="phoneTBL" EntityType="Self.phoneTBL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_emailTBL_TocontactTBL" Association="Self.FK_emailTBL_TocontactTBL">
+            <End Role="contactTBL" EntitySet="contactTBL" />
+            <End Role="emailTBL" EntitySet="emailTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_phoneTBL_ToContcatTBL" Association="Self.FK_phoneTBL_ToContcatTBL">
+            <End Role="contactTBL" EntitySet="contactTBL" />
+            <End Role="phoneTBL" EntitySet="phoneTBL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="contactTBL" EntityType="dbModel.contactTBL" />
+          <EntitySet Name="emailTBL" EntityType="dbModel.emailTBL" />
+          <EntitySet Name="phoneTBL" EntityType="dbModel.phoneTBL" />
+          <AssociationSet Name="FK_emailTBL_TocontactTBL" Association="dbModel.FK_emailTBL_TocontactTBL">
+            <End Role="contactTBL" EntitySet="contactTBL" />
+            <End Role="emailTBL" EntitySet="emailTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_phoneTBL_ToContcatTBL" Association="dbModel.FK_phoneTBL_ToContcatTBL">
+            <End Role="contactTBL" EntitySet="contactTBL" />
+            <End Role="phoneTBL" EntitySet="phoneTBL" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="contactTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="creationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fullName" Type="String" MaxLength="101" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="emailTBL" Relationship="dbModel.FK_emailTBL_TocontactTBL" FromRole="contactTBL" ToRole="emailTBL" />
+          <NavigationProperty Name="phoneTBL" Relationship="dbModel.FK_phoneTBL_ToContcatTBL" FromRole="contactTBL" ToRole="phoneTBL" />
+        </EntityType>
+        <EntityType Name="emailTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cID" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contactTBL" Relationship="dbModel.FK_emailTBL_TocontactTBL" FromRole="emailTBL" ToRole="contactTBL" />
+        </EntityType>
+        <EntityType Name="phoneTBL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cID" Type="Int32" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="contactTBL" Relationship="dbModel.FK_phoneTBL_ToContcatTBL" FromRole="phoneTBL" ToRole="contactTBL" />
+        </EntityType>
+        <Association Name="FK_emailTBL_TocontactTBL">
+          <End Type="dbModel.contactTBL" Role="contactTBL" Multiplicity="1" />
+          <End Type="dbModel.emailTBL" Role="emailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contactTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="emailTBL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_phoneTBL_ToContcatTBL">
+          <End Type="dbModel.contactTBL" Role="contactTBL" Multiplicity="1" />
+          <End Type="dbModel.phoneTBL" Role="phoneTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contactTBL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="phoneTBL">
+              <PropertyRef Name="cID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
+          <EntitySetMapping Name="contactTBL">
+            <EntityTypeMapping TypeName="dbModel.contactTBL">
+              <MappingFragment StoreEntitySet="contactTBL">
+                <ScalarProperty Name="fullName" ColumnName="fullName" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emailTBL">
+            <EntityTypeMapping TypeName="dbModel.emailTBL">
+              <MappingFragment StoreEntitySet="emailTBL">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cID" ColumnName="cID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phoneTBL">
+            <EntityTypeMapping TypeName="dbModel.phoneTBL">
+              <MappingFragment StoreEntitySet="phoneTBL">
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="cID" ColumnName="cID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
