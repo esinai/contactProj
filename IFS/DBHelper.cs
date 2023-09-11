@@ -22,7 +22,7 @@ namespace contactProj.IFS
         #region load func
         public static List<contactTBL> getAllContacts()
         {
-            allContacts = (from s in db.contactTBL select s).ToList();
+            allContacts = (from s in db.contactTBL orderby s.firstName select s).ToList();
             return allContacts;
         }
         #endregion
@@ -33,7 +33,7 @@ namespace contactProj.IFS
             {
                 db.contactTBL.Add(c1);
                 db.SaveChanges();
-                allContacts.Add(c1);
+                getAllContacts();
                 return c1;
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace contactProj.IFS
                 toUpdate.firstName = c1.firstName;
                 toUpdate.lastName = c1.lastName;
                 db.SaveChanges();
-                allContacts = (from s in db.contactTBL select s).ToList();
+                getAllContacts();
                 return true;
             }
             return false;
@@ -61,7 +61,36 @@ namespace contactProj.IFS
         {
 
         }
+
+        public static contactTBL getContactByName(string fn, string ln)
+        {
+            contactTBL result = allContacts.Where(x => x.firstName == fn 
+                                                    && x.lastName == ln)
+                                                    .FirstOrDefault();
+            return result;
+        }
         #endregion
 
+
+        #region delete func
+        public static bool deleteContact(contactTBL c1)
+        {
+            try
+            {
+                contactTBL toDelete = (from s in db.contactTBL where s.Id == c1.Id select s).FirstOrDefault();
+                if (toDelete == null)
+                    return false;
+                db.contactTBL.Remove(toDelete);
+                db.SaveChanges();
+                getAllContacts();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error delete: " + ex.Message.ToString());
+                return false;
+            }
+        }
+        #endregion
     }
 }
