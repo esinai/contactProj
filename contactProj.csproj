@@ -54,6 +54,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="RJCodeAdvance.RJControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\RJCodeAdvance.RJControls.1.0.0\lib\net45\RJCodeAdvance.RJControls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -76,7 +79,19 @@
     <Compile Include="emailTBL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="emailWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="emailWin.Designer.cs">
+      <DependentUpon>emailWin.cs</DependentUpon>
+    </Compile>
     <Compile Include="IFS\DBHelper.cs" />
+    <Compile Include="contactWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="contactWin.Designer.cs">
+      <DependentUpon>contactWin.cs</DependentUpon>
+    </Compile>
     <Compile Include="mainWin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,16 +117,37 @@
     <Compile Include="phoneTBL.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="phoneWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="phoneWin.Designer.cs">
+      <DependentUpon>phoneWin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reportWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reportWin.Designer.cs">
+      <DependentUpon>reportWin.cs</DependentUpon>
+    </Compile>
     <Compile Include="testWin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="testWin.Designer.cs">
       <DependentUpon>testWin.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="contactWin.resx">
+      <DependentUpon>contactWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="emailWin.resx">
+      <DependentUpon>emailWin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mainWin.resx">
       <DependentUpon>mainWin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="phoneWin.resx">
+      <DependentUpon>phoneWin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -121,7 +157,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="reportWin.resx">
+      <DependentUpon>reportWin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="testWin.resx">
       <DependentUpon>testWin.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +174,8 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\contactTBL.datasource" />
+    <None Include="Properties\DataSources\emailTBL.datasource" />
+    <None Include="Properties\DataSources\phoneTBL.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -165,6 +207,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\aaa.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

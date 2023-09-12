@@ -13,147 +13,127 @@ namespace contactProj
 {
     public partial class mainWin : Form
     {
+        Form current = null;
         public mainWin()
         {
             InitializeComponent();
         }
+
         private void mainWin_Load(object sender, EventArgs e)
         {
             DBHelper.init();
-            loadCBX();
         }
-
-        private void loadCBX()
+        private void btnOpenContactWin_Click(object sender, EventArgs e)
         {
-            List<contactTBL> lst = DBHelper.allContacts;
-            cbxContacts.DataSource = dgvContacts.DataSource = lst;
-            cbxContacts.DisplayMember = "fullName";
-            cbxContacts.ValueMember = "Id";
-            btnDelete.Enabled = btnUpdateContact.Enabled = lst.Count > 0;
-            if (lst.Count == 0)
+            if (current != null)
             {
-                txbFNUpdate.Text = "";
-                txbLNUpdate.Text = "";
+                if (current is contactWin)
+                {
+                    (current as contactWin).moveToPage(0);
+                    return;
+                }
+                current.Close();
             }
-        }
-
-        private void btnAddContact_Click(object sender, EventArgs e)
-        {
-            if (!validAddForm())
-                return;
-            
-            
-            string fn = txbAddFirstName.Text.Trim();
-            string ln = txbAddLastName.Text.Trim();
-            if (checkIfInDB(fn,ln))
+            current = new contactWin()
             {
-                MessageBox.Show("Contact Exist");
-                return;
-            }
-            contactTBL cToAdd = new contactTBL();
-            cToAdd.firstName = fn;
-            cToAdd.lastName = ln;
-            cToAdd.creationDate = DateTime.Now;
-
-            cToAdd = DBHelper.addContact(cToAdd);
-            if (cToAdd != null)
-            {
-                MessageBox.Show("OK");
-                txbAddFirstName.Text = "";
-                txbAddLastName.Text = "";
-                loadCBX();
-            }
-        }
-
-        private bool validAddForm()
-        {
-            bool a1 = checkAddFN();
-            bool a2 = checkAddLN();
-           
-            return a1 && a2;
-        }
-
-        private bool checkIfInDB(string fn, string ln)
-        {
-            contactTBL c1 = DBHelper.getContactByName(fn, ln);
-            return c1 != null;
-        }
-
-        private bool checkAddLN()
-        {
-            string ln = txbAddLastName.Text.Trim();
-            if (ln.Length == 1)
-            {
-                errorProvider1.SetError(txbAddLastName, "Last name at least 2 letters");
-                return false;
-            }
-            if (!ln.All(Char.IsLetter))
-            {
-                errorProvider1.SetError(txbAddLastName, "only letters allows");
-                return false;
-            }
-            errorProvider1.SetError(txbAddLastName, "");
-            return true;
-        }
-
-        private bool checkAddFN()
-        {
-            string fn = txbAddFirstName.Text.Trim();
-            if (fn.Length < 2)
-            {
-                errorProvider1.SetError(txbAddFirstName, "First name is must need at least 2 letters");
-                return false;
-            }
-            if (!fn.All(Char.IsLetter))
-            {
-                errorProvider1.SetError(txbAddFirstName, "only letters allows");
-                return false;
-            }
-            errorProvider1.SetError(txbAddFirstName, "");
-            return true;
-        }
-
-        private void cbxContacts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            contactTBL selected = (contactTBL)cbxContacts.SelectedItem;
-            if (selected != null)
-            {
-                txbFNUpdate.Text = selected.firstName;
-                txbLNUpdate.Text = selected.lastName;
-            }
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+            (current as contactWin).moveToPage(0);
+            current.Show();
 
         }
 
         private void btnUpdateContact_Click(object sender, EventArgs e)
         {
-            contactTBL selected = (contactTBL)cbxContacts.SelectedItem;
-            if (selected != null)
+            if (current != null)
             {
-                int idx = cbxContacts.SelectedIndex;
-                selected.firstName = txbFNUpdate.Text.Trim();
-                selected.lastName = txbLNUpdate.Text.Trim();
-                DBHelper.updateContact(selected);
-                loadCBX();
-                cbxContacts.SelectedIndex = idx;
+                if (current is contactWin)
+                {
+                    (current as contactWin).moveToPage(1);
+                    return;
+                }
+                current.Close();
             }
+            current = new contactWin()
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+            (current as contactWin).moveToPage(1);
+            current.Show();
+
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void btnListOfContacts_Click(object sender, EventArgs e)
         {
-
-
-
-            contactTBL selected = (contactTBL)cbxContacts.SelectedItem;
-            if (selected == null)
+            if (current != null)
             {
-                return;
+                if (current is contactWin)
+                {
+                    (current as contactWin).moveToPage(2);
+                    return;
+                }
+                current.Close();
             }
-            DialogResult result = MessageBox.Show("Are you sure", "Warning", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            current = new contactWin()
             {
-                DBHelper.deleteContact(selected);
-                loadCBX();
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+            (current as contactWin).moveToPage(2);
+            current.Show();
+
+        }
+
+        private void btnPhoneWin_Click(object sender, EventArgs e)
+        {
+            if (current != null)
+            {
+                if (current is phoneWin)
+                {
+                    
+                    return;
+                }
+                current.Close();
             }
+            current = new phoneWin()
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+          
+            current.Show();
+        }
+
+        private void btnOpenEmailWin_Click(object sender, EventArgs e)
+        {
+            if (current != null)
+            {
+                if (current is emailWin)
+                {
+
+                    return;
+                }
+                current.Close();
+            }
+            current = new emailWin()
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+
+            current.Show();
         }
     }
 }
