@@ -39,7 +39,7 @@ namespace contactProj
             this.btnPhoneWin = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpenEmailWin = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenReportWin = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +49,7 @@ namespace contactProj
             this.contactManagerToolStripMenuItem,
             this.phoneManagerToolStripMenuItem,
             this.btnOpenEmailWin,
-            this.reportToolStripMenuItem});
+            this.btnOpenReportWin});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(589, 24);
@@ -117,11 +117,12 @@ namespace contactProj
             this.mainPanel.Size = new System.Drawing.Size(589, 314);
             this.mainPanel.TabIndex = 1;
             // 
-            // reportToolStripMenuItem
+            // btnOpenReportWin
             // 
-            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
-            this.reportToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.reportToolStripMenuItem.Text = "Report";
+            this.btnOpenReportWin.Name = "btnOpenReportWin";
+            this.btnOpenReportWin.Size = new System.Drawing.Size(54, 20);
+            this.btnOpenReportWin.Text = "Report";
+            this.btnOpenReportWin.Click += new System.EventHandler(this.btnOpenReportWin_Click);
             // 
             // mainWin
             // 
@@ -153,6 +154,6 @@ namespace contactProj
         private System.Windows.Forms.ToolStripMenuItem btnOpenEmailWin;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.ToolStripMenuItem btnPhoneWin;
-        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnOpenReportWin;
     }
 }

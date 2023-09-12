@@ -25,11 +25,27 @@ namespace contactProj
         {
             modelList = new List<ContactModel>();
             allContactsList = DBHelper.allContacts;
+            flowPanel.ScrollControlIntoView(this);
             foreach (contactTBL c in allContactsList)
             {
                 ContactModel cModel = new ContactModel(c);
                 modelList.Add(cModel);
+                ContactControl control = new ContactControl();
+                control.FullName = cModel.fullName;
+                control.setEmailList(cModel.emailList);
+                control.setPhoneList(cModel.phoneList);
+                control.Width = flowPanel.Width;
+
+                flowPanel.Controls.Add(control);
             }
+            lblNumOfContacts.Text = "Total contacts : " + modelList.Count;
+            double avgPhone = DBHelper.allPhones.Count / (double)modelList.Count;
+            double avgEmail = DBHelper.allEmails.Count / (double)modelList.Count;
+            avgEmail = Math.Round(avgEmail, 1);
+            avgPhone = Math.Round(avgPhone, 1);
+            lblAvgEmail.Text = "Avg Email : " + avgEmail;
+            lblAvgPhone.Text = "Avg Phone : " + avgPhone;
+
         }
     }
 }

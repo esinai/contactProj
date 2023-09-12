@@ -135,5 +135,27 @@ namespace contactProj
 
             current.Show();
         }
+
+        private void btnOpenReportWin_Click(object sender, EventArgs e)
+        {
+            if (current != null)
+            {
+                if (current is reportWin)
+                {
+
+                    return;
+                }
+                current.Close();
+            }
+            current = new reportWin()
+            {
+                Dock = DockStyle.Fill,
+                TopLevel = false,
+                TopMost = true
+            };
+            mainPanel.Controls.Add(current);
+
+            current.Show();
+        }
     }
 }
